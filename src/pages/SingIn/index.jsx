@@ -1,10 +1,11 @@
 import { Container, Form, Background} from "./style";
-import {FiLogIn, FiMail, FiLock} from "react-icons/fi"
+import { FiMail, FiLock} from "react-icons/fi"
 
+import {Link } from 'react-router-dom'
 import { Input } from './../../components/Input/index';
 import { Button } from './../../components/Button/index';
 
-export function Signin() {
+export function SignIn() {
     return(
         <Container>
             <Form>
@@ -28,9 +29,9 @@ export function Signin() {
                 title="Login"
                 />
 
-                <a href="#">
+                <Link to="/register">
                     Criar conta
-                </a>
+                </Link>
             </Form>
 
             <Background/>
