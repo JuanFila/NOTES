@@ -20,14 +20,14 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={ signIn }>
+        <AuthContext.Provider value={ {signIn} }>
             {children}
         </AuthContext.Provider>
     )
 }
 
 function useAuth() {
-    const context = useContext(AuthProvider);
+    const context = useContext(AuthContext);
 
     return context
 }
