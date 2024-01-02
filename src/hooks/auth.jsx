@@ -12,10 +12,11 @@ function AuthProvider({ children }) {
             const response = await api.post("/sessions", { email, password })
             const { user, token } = response.data;
 
-            localStorage.setItem("@rocktnotes:user" , JSON.stringify(user))
-            localStorage.setItem("@rocktnotes:token" , token)
+            localStorage.setItem("@rocktnotes:user", JSON.stringify(user))
+            localStorage.setItem("@rocktnotes:token", token)
 
-            api.defaults.headers.authorization = `Bearer ${token}`;
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
             setData({ user, token })
 
         } catch (err) {
@@ -34,8 +35,8 @@ function AuthProvider({ children }) {
         const token = localStorage.getItem("@rocktnotes:token")
         const user = localStorage.getItem("@rocktnotes:user")
 
-        if(token && user) {
-            api.defaults.headers.authorization = `Bearer ${token}`;
+        if (token && user) {
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             setData({
                 token,
                 user: JSON.parse(user)
@@ -44,11 +45,11 @@ function AuthProvider({ children }) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ 
+        <AuthContext.Provider value={{
             signIn,
             singOut,
             user: data.user
-             }}>
+        }}>
             {children}
         </AuthContext.Provider>
     )
