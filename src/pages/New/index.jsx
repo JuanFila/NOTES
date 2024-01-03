@@ -4,10 +4,45 @@ import { Input } from './../../components/Input/index';
 import { TextArea } from './../../components/TextArea/index';
 import { NoteItem } from './../../components/NoteItem/index';
 import { Section } from './../../components/Section/index';
-import { Button} from './../../components/Button/index'
+import { Button } from './../../components/Button/index'
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
 export function New() {
+
+    const [links, setLinks] = useState([]);
+    const [newLink, setNewLink] = useState("");
+
+    const [Tags, setTags] = useState([]);
+    const [newTag, setNewTag] = useState("");
+
+    function handleAddLink() {
+        if (newLink !== "") {
+            setLinks(prevState => [...prevState, newLink])
+            setNewLink("")
+        } else {
+            alert("Insira um link valido")
+        }
+    }
+    function handleRemoveLink(deleted) {
+        setLinks(prevState => prevState.filter(link => link !== deleted))
+    }
+
+    function handleAddTag() {
+        
+        if (newTag !== "") {
+            setTags(prevState => [...prevState, newTag])
+            setNewTag("");
+        } else {
+            alert("Insira uma tag valida")
+        }
+        
+    }
+
+    function handleRemoveTag(deleted) {
+        setTags(prevState => prevState.filter(tag => tag !== deleted))
+    }
+
     return (
         <Container>
             <Header />
@@ -22,17 +57,46 @@ export function New() {
                     <TextArea placeholder="Observações" />
 
                     <Section title="Link úteis">
-                        <NoteItem value="https://app.rocketseat.com.br/classroom/stage-09/group/desenvolvendo-aplicacao/lesson/estilizando-o-note-item-1" />
-                        <NoteItem value="" isNew placeholder="Novo link" />
+                        {
+                            links.map((link, index) => (
+                                <NoteItem
+                                    key={String(index)}
+                                    value={link}
+                                    onClick={() => { handleRemoveLink(link) }}
+                                />
+                            ))
+                        }
+                        <NoteItem
+                            value={newLink}
+                            onChange={e => setNewLink(e.target.value)}
+                            isNew
+                            placeholder="Novo link"
+                            onClick={handleAddLink}
+                        />
                     </Section>
 
                     <Section title="Marcadores">
                         <div className="tags">
-                            <NoteItem value="React" />
-                            <NoteItem value="" isNew placeholder="Nova tag" />
+                            {
+                                Tags.map((tag, index) => (
+                                    <NoteItem
+                                        key={String(index)}
+                                        value={tag}
+                                        onClick={() => handleRemoveTag(tag)}
+                                    />
+                                ))
+                            }
+
+                            <NoteItem
+                                value={newTag}
+                                isNew
+                                placeholder="Nova tag"
+                                onChange={e => setNewTag(e.target.value)}
+                                onClick={handleAddTag}
+                            />
                         </div>
                     </Section>
-                    <Button title="Salvar"/>
+                    <Button title="Salvar" />
                 </Form>
             </main>
         </Container>

@@ -40,6 +40,7 @@ export const Avatar = styled.div`
     width: 186px;
     height: 186px;
     border-radius: 50%
+    
   }
 
   > label {
@@ -59,7 +60,11 @@ export const Avatar = styled.div`
     cursor: pointer;
 
     input {
-      display:  none;
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 3px;
       }
 
       svg {
