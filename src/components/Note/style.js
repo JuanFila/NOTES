@@ -8,6 +8,7 @@ export const Container = styled.div`
     border-radius: 10px;
     padding: 22px;
     margin-bottom: 16px;
+    cursor: pointer;
 
     > h1 {
         flex: 1;
