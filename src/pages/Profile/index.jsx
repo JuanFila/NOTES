@@ -3,7 +3,7 @@ import { Container, Form, Avatar } from "./style";
 import { FiArrowLeft, FiMail, FiUser, FiLock, FiCamera } from "react-icons/fi";
 import { Input } from './../../components/Input';
 import { Button } from './../../components/Button/index';
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
@@ -20,6 +20,8 @@ export function Profile() {
     const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : placeholderAvatar
     const [avatar, setAvatar]  = useState(avatarUrl)
     const [avatarFile, setAvatarFile]  = useState(null)
+
+    const navigate = useNavigate()
 
     async function handleUpdate() {
         const user = {
@@ -39,12 +41,18 @@ export function Profile() {
         const imagePreview = URL.createObjectURL(file);
         setAvatar(imagePreview)
     }
+
+    function handleBack() {
+        navigate(-1) // -1 faz ele voltar a camada ao invés dele adicionar mais uma camada no histórico navegação
+      }
+
+
     return (
         <Container>
             <header>
-                <Link to="/">
+                <button type="button" onClick={handleBack}>
                     <FiArrowLeft />
-                </Link>
+                </button>
             </header>
 
             <Form>

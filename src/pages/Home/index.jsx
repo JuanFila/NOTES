@@ -12,16 +12,16 @@ import { api } from "../../services/api";
 import { useNavigate } from 'react-router-dom';
 
 export function Home() {
-    
+
     const [search, setSearch] = useState("")
     const [tags, setTags] = useState([]);
     const [tagsSelected, setTagsSelected] = useState([]);
     const [notes, setNotes] = useState([]);
-    
+
     const navigate = useNavigate()
-    
+
     function handleTagSelected(tagName) {
-        if(tagName === "all"){
+        if (tagName === "all") {
             return setTagsSelected([])
         }
 
@@ -36,7 +36,7 @@ export function Home() {
 
     }
 
-    function handleDetails(id){
+    function handleDetails(id) {
         navigate(`/details/${id}`)
     }
 
@@ -74,9 +74,8 @@ export function Home() {
                 </li>
                 {
                     tags && tags.map((tag) => (
-                        <li>
+                        <li key={String(tag.id)}>
                             <ButtonText
-                                key={String(tag.id)}
                                 title={tag.name}
                                 $isActive={tagsSelected.includes(tag.name)}
                                 onClick={() => handleTagSelected(tag.name)}
@@ -98,11 +97,11 @@ export function Home() {
                 <Section title="Minhas notas">
                     {
                         notes.map(note => (
-                            <Note 
-                            key={String(note.id)}
-                            data={note}
-                            onClick={() => handleDetails(note.id)}
-                             />
+                            <Note
+                                key={String(note.id)}
+                                data={note}
+                                onClick={() => handleDetails(note.id)}
+                            />
                         ))
                     }
                 </Section>
